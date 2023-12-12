@@ -1,0 +1,68 @@
+type Query{
+    "lista de estudiantes"
+    estudiantes : [Estudiante!]!
+    "informacion del estudiante seleccionado por id"
+    estudiante(id:ID!) : Estudiante!
+    "lista de los cursos"
+    cursos: [Curso!]!
+    "informacion del curso seleccionado por id"
+    curso(id:ID!) :Curso!
+}
+
+type Mutation{
+    crearCurso(curso:CursoInput!):Curso!
+    modificarCurso(curso:CursoInput!):Curso!
+    eliminarCurso(id:ID!):Curso!
+}
+
+input CursoInput{
+    id: ID
+    title: String!
+    description: String!
+    clases: Int!
+    time: Float!
+    level: Nivel=TODOS
+    logo: String!
+    path: String!
+    teacher: String!
+}
+
+
+" ESTUDIANTES "
+type Estudiante{
+    "identificativo del estudiante"
+    id: ID!
+    name: String!
+    email: String!
+    website: String!
+    courses: [Curso!]!
+}
+
+type Curso{
+    id: ID!
+    title: String!
+    description: String!
+    clases: Int!
+    time: Float!
+    level: Nivel!
+    logo: String!
+    path: String!
+    teacher: String!
+    students: [Estudiante]
+    reviews: [Valoracion!]!
+}
+
+
+enum Nivel {
+    TODOS
+    NOVATO
+    INTERMEDIO
+    EXPERTO
+}
+
+type Valoracion {
+    id: ID!
+    name: String!
+    points: Float!
+    comment: String!
+}
